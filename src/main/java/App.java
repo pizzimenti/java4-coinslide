@@ -7,12 +7,37 @@ import static spark.Spark.*;
 
 public class App {
   public static void main(String[] args) {
-    //
-    // int cents = request.queryParams("cents");
-    // HashMap<String, Integer> coins = new HashMap<String, Integer>();
-    // coins = giveChange(cents);
-    //
-    // String displayChange = "You need %s quarters, %s dimes, %s nickels, % pennies"
+    staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
+
+    get("/", (request, response) -> {
+      HashMap model = new HashMap();
+      model.put("template", "templates/coinApp.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/result", (request, response) -> {
+      HashMap model = new HashMap();
+      String centsString = request.queryParams("userInput");
+      System.out.println ("userInput: " + centsString);
+      Integer cents = Integer.parseInt(centsString);
+      System.out.println("cents " + cents);
+      HashMap<String, Integer> coins = new HashMap<String, Integer>();
+      coins = giveChange(cents);
+      int quarters = coins.get("Quarters");
+      int dimes = coins.get("Dimes");
+      int nickels = coins.get("Nickels");
+      int pennies = coins.get("Pennies");
+      String displayCoins = String.format("You need %s quarters, %s dimes, %s nickels, and %s pennies", quarters, dimes, nickels, pennies);
+
+
+      model.put("template", "templates/coinResult.vtl");
+      model.put("result", String.format(displayCoins));
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+
 
   }
 
