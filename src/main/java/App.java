@@ -35,12 +35,9 @@ public class App {
       model.put("result", String.format(displayCoins));
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
-
-
-
   }
 
+//Looks good, clean code
 
   public static HashMap giveChange(int cents) {
 
