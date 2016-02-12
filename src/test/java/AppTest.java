@@ -30,6 +30,11 @@ public class AppTest extends FluentTest {
     assertEquals("{Nickels=0, Dimes=0, Quarters=1, Pennies=0}", testApp.giveChange(25).toString());
   }
 
+
+  //Remove unnecessary comments? Also could probably use more tests? (Integration tests too)
+
+
+
   // @Test
   // public void giveChange_45cents_1quarter2dimes() {
   //   App testApp = new App();
